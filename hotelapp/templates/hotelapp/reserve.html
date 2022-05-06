@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title> reservation </title>
+    <link href="{% static 'hotelapp/css/hotel.css' %}" rel="stylesheet" type="text/css">
+    <style>
+        input, .aa select {
+            width: 500px;
+            border: 1px solid #ddd;
+            padding: 15px 10px;
+            font-size: 18px;
+        }
+        ul p {font-size: 18px; font-weight: 600; margin: 30px 0 10px;}
+        .tb {
+            width: 100%;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            margin-top: 50px;
+        }
+        .tb th {padding: 15px 5px;}
+        .tb td {padding: 20px 5px; text-align: center; border-top: 1px solid #ddd;}
+    
+    </style>
+
+    <script type ="text/javascript"
+        src = "{% static 'hotelapp/js/reserve.js' %}">
+    </script>
+
+
+</head>
+<body>
+    {% include 'hotelapp/include/nav.html' %}
+    <div class="aa"style="margin: 10px auto 100px; width: 1200px;">
+        <IMG SRC= "{% static 'hotelapp/img/room4.png'%}">
+        <h2>저희 고려호텔을 찾아 주셔서 감사합니다.</h2>
+        <form>
+            <ul>
+                <li>
+                    <p>*는 필수 선택 사항 입니다.</p>
+                </li>
+                <li>
+                <p>객실 선호 전망</p>
+                <select>
+                    <option>선택</option>
+                    <option>"오션뷰"</option>
+                    <option>"마운틴뷰"</option>
+                    <option>"시티뷰"</option>
+                </select>
+                </li>
+                <li>
+                    <p>*이름</p>
+                    <input id= "name" type="text" value="name" placehorder="한글명을 입력해주세요" onkeyup="doSomething()">
+                </li>
+                <li>
+                    <p>이메일</p>
+                    <input type="email" name="email" placehorder="asdf@gmail.com">
+                </li>
+                <li>
+                    <p>*핸드폰 번호(-제외)</p>
+                    <input id="tel" type="tel" >
+                </li>
+                <li>
+                    <p>*생일</p>
+                    <input type="date" name="생일">
+                </li>
+                <li>
+                    <p>*성별</p>
+                    <select>
+                        <option>선택</option>
+                        <option>남성</option>
+                        <option>여성</option>
+                    </select>
+                </li>
+                <li>
+                    <p>*카드선택</p>
+                    <select>
+                        <option>선택</option>
+                        <option>우리은행</option>
+                        <option>국민은행</option>
+                        <option>농협은행</option>
+                        <option>기타은행</option>
+                    </select>
+                </li>
+                <li>
+                    <p>*카드번호</p>
+                    <input type ="number" value="숫자만 입력">
+                </li>
+                <li>
+                    <p>*카드 년 월</p>
+                    <input type ="month">
+                </li>
+                <li>
+                    <p>*카드 비밀번호 앞 두자리</p>
+                    <input type ="number">
+                </li>
+                <li>
+                    <p>할인 코드</p>
+                    <input type ="text"> 
+                </li>
+                <li>
+        
+                <input type = "button" onClick="getInputValue()" value="reserve">
+                </li>
+            </ul>
+        </form>
+        <hr>
+        <table border="1" class="tb">
+            <tr>
+                <th>체크인</th>
+                <th>체크아웃</th>
+                <th>객실 가격</th>
+                <th>이벤트</th>
+                <th>할인코드</th>
+                <th>지불한 가격</th>
+            </tr>
+            {% for col in df %}
+            <tr>
+                {% for data in col %}
+                <td>{{data}}</td>
+                {%endfor%}
+            </tr>
+            {%endfor%}
+        </table>
+        <a style="background:#000; color:#fff; display: inline-block; padding: 20px 50px; margin-top: 20px; font-size: 18px;" href="/hotel/room/">취소</a>
+        <a style="background:#ffba00; color:#000; display: inline-block; padding: 20px 50px; margin-top: 20px; font-size: 18px;" href="/hotel/reserve_info">예약 완료</a>
+        <p>
+            <span id = "valueA"></span> 님
+            <span id = "valueB"></span> 로
+            <span id = "valueC"></span> 예약되셨습니다.
+            </p>
+    </div>
+    {% include 'hotelapp/include/footer.html' %}
+</body>
+</html>
