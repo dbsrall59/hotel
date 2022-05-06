@@ -62,7 +62,7 @@ values('wow', 'asdqwdqwd', 881010, 0, 1234, 42, 1, 01012345678, 'asd@gmail.com',
     cursor.execute(sql)
     conn.commit()
     
-    sql = """select mem_name, mem_id from member where mem_id = 'wow'"""
+    sql = """select mem_name, mem_id, mem_date from member where mem_id = 'wow'"""
     cursor.execute(sql)
     row = cursor.fetchone()
     
