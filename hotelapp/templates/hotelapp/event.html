@@ -7,7 +7,7 @@
         <style>
             .eve_li {padding: 50px 0; border-bottom: 1px solid #ddd; position: relative;}
             .eve_li:last-child {margin-bottom: 100px; border-bottom: 0;}
-            .eve_li > img {width: 500px; height: 300px; border: 1px solid red; display: inline-block;}
+            .eve_li > img {width: 500px; height: 300px; display: inline-block;}
             .eve_info {position: absolute; top: 70px; left: 550px;}
             .eve_info li:nth-child(1) {font-size: 30px; font-weight: 800;}
             .eve_info li:nth-child(2) {margin: 10px 0 30px; font-size: 18px; color: #555;}
@@ -26,7 +26,7 @@
         <div style="width: 1200px; margin: 0 auto;">
                 <ul>
                     <li class="eve_li">
-                        <img src="" alt=".">
+                        <img src="{% static 'hotelapp/img/children.jpg' %}" alt=".">
                         <ul class="eve_info">
                             <li>{{eve.0.0}}</li>
                             <li>{{eve.0.1}} ~ {{eve.0.2}}</li>
@@ -34,7 +34,7 @@
                         </ul>
                     </li>
                     <li class="eve_li">
-                        <img src="" alt=".">
+                        <img src="{% static 'hotelapp/img/may.jpg' %}" alt=".">
                         <ul class="eve_info">
                             <li>{{eve.1.0}}</li>
                             <li>{{eve.1.1}} ~ {{eve.1.2}}</li>
@@ -42,7 +42,7 @@
                         </ul>
                     </li>
                     <li class="eve_li">
-                        <img src="" alt=".">
+                        <img src="{% static 'hotelapp/img/20year.jpg' %}" alt=".">
                         <ul class="eve_info">
                             <li>{{eve.2.0}}</li>
                             <li>{{eve.2.1}} ~ {{eve.2.2}}</li>
@@ -51,7 +51,7 @@
                     </li>
                     <li class="eve_li">
                         <p class="eve_fin">이벤트 종료</p>
-                        <img src="" alt=".">
+                        <img src="{% static 'hotelapp/img/children.jpg' %}" alt=".">
                         <ul class="eve_info">
                             <li>{{eve.3.0}}</li>
                             <li>{{eve.3.1}} ~ {{eve.3.2}}</li>
