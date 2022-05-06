@@ -84,13 +84,6 @@ def event(request):
                   "hotelapp/event.html", {})
 
 
-def join(request):
-    return render(request, 'hotelapp/join.html', {})
- 
-def join_suc(request):
-    result = adm.join()
-    data = {"data" : result}
-    return render(request, 'hotelapp/join_suc.html', data)
 
 
 def board(request):
@@ -165,7 +158,23 @@ def event(request):
     return render(request, 'hotelapp/event.html', asdf)
 
 
+
+
+def join(request):
+    return render(request, 'hotelapp/join.html', {})
+ 
 def join_suc(request):
     id = request.GET.get('mem_id')
     pw = request.GET.get('mem_pw')
-    result = sql.join(id,pw)
+    m_name = request.GET.get('mem_name')
+    m_email = request.GET.get('mem_email')
+    tel = request.GET.get('mem_tel')
+    regno = request.GET.get('mem_regno')
+    if request.GET.get('mem_gender') == '남성':
+        gender = '1'
+    else:
+        gender = '0'
+    result = adm.join(id,pw, m_name, m_email, tel, regno, gender)
+    data = {"data" : result}
+    
+    return render(request, 'hotelapp/join_suc.html', data)

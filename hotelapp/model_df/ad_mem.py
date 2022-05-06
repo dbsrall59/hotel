@@ -1,3 +1,4 @@
+import email
 import cx_Oracle
 
 def select_basic():
@@ -50,25 +51,44 @@ order by mem_inid asc"""
     
     return row
 
-def join(id, pw):
+def join(id, pw, m_name, m_email, tel, regno, gender):
     dsn = cx_Oracle.makedsn('localhost', 1521, 'xe')
     conn = cx_Oracle.connect('hotel', 'dbdb', dsn)
     cursor = conn.cursor()
     
-    sql = """insert into member (mem_id, mem_pw) values('"""
+    sql = """insert into member (mem_id, mem_pw, mem_name, mem_email, mem_tel, mem_regno, mem_gender, mem_date, mem_add, mem_staff, mem_cardno, mem_cdpw) values('"""
     sql += id
     sql += "','"
     sql += pw
+    sql += "','"
+    sql += m_name
+    sql += "','"
+    sql += m_email
+    sql += "','"
+    sql += tel
+    sql += "','"
+    sql += regno 
+    sql += "','"
+    sql += gender    
+    sql += "','"
+    sql += '20220506'    
+    sql += "','"
+    sql += '세종'    
+    sql += "','"
+    sql += '0'    
+    sql += "','"
+    sql += ''    
+    sql += "','"
+    sql += ''   
     sql += "')"
-    
-    sql = """insert into member
-(MEM_ID,MEM_PW,MEM_REGNO,MEM_STAFF,MEM_CARDNO,MEM_CDPW,MEM_GENDER,MEM_TEL,MEM_EMAIL,MEM_NAME,MEM_ADD,MEM_DATE)
-values('wow', 'asdqwdqwd', 881010, 0, 1234, 42, 1, 01012345678, 'asd@gmail.com', '일이상', '서울특별시', sysdate)"""
-    
+
+  
     cursor.execute(sql)
     conn.commit()
     
-    sql = """select mem_name, mem_id, mem_date from member where mem_id = 'wow'"""
+    sql = """select mem_name, mem_id, mem_date from member where mem_id = '"""
+    sql += id
+    sql += "'"
     cursor.execute(sql)
     row = cursor.fetchone()
     
