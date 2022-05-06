@@ -130,7 +130,9 @@ def ad_reserve(request):
     
 
 def update(request):
-    return render(request, 'hotelapp/update.html', {})
+    result = adm.update()
+    data = {"data" : result}
+    return render(request, 'hotelapp/update.html', data)
  
 def update_suc(request):
     result = adm.update()

@@ -84,7 +84,10 @@ where mem_id = 'wow'"""
     cursor.execute(sql)
     conn.commit()
     
-    sql = """select mem_name, mem_id from member where mem_id = 'wow'"""
+    sql = """select mem_name, mem_id, '0'||mem_tel, mem_regno, 
+             decode(mem_gender,
+             1, '남자',
+             2, '여자'), mem_email, mem_pw from member where mem_id = 'wow'"""
     cursor.execute(sql)
     row = cursor.fetchone()
     

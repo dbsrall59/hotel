@@ -33,32 +33,36 @@
             <table class="up_tb">
                 <tbody>
                     <tr>
+                        <th>이름</th>
+                        <td>{{data.0}}</td>
+                    </tr>
+                    <tr>
                         <th>아이디</th>
-                        <td></td>
+                        <td>{{data.1}}</td>
                     </tr>
                     <tr>
                         <th>패스워드</th>
-                        <td><input value="********" type="password"></td>
+                        <td><input value="{{data.6}}" type="password"></td>
                     </tr>
                     <tr>
                         <th>패스워드 확인</th>
-                        <td><input value="********" type="password"></td>
+                        <td><input value="" type="password"></td>
                     </tr>
                     <tr>
                         <th>생일</th>
-                        <td><input value="1988/10/10"></td>
+                        <td><input value="{{data.3}}"></td>
                     </tr>
                     <tr>
                         <th>성별</th>
-                        <td> 남</td>
+                        <td>{{data.4}}</td>
                     </tr>
                     <tr>
                         <th>휴대전화</th>
-                        <td><input value="010-1234-5678"></td>
+                        <td><input value="{{data.2}}"></td>
                     </tr>
                     <tr>
                         <th>이메일</th>
-                        <td><input value="superkoreahotel@koreahotel.net"></td>
+                        <td><input value="{{data.5}}"></td>
                     </tr>
                 </tbody>
             </table>
