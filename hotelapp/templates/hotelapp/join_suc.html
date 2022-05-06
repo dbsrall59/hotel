@@ -11,6 +11,7 @@
     <body>
         {% include 'hotelapp/include/nav.html' %}
 
+<<<<<<< HEAD
         <h1 align="center">환영합니다!</h1>
         <br>
         <h2 align="center">
@@ -27,6 +28,18 @@
             </button>
         </p>
 
+=======
+        <div style="background: #f9f9f9; text-align: center; padding: 150px 0;">
+            <p style="font-size: 50px; font-weight: 100; margin-bottom: 50px;">환영합니다!</p>
+            <p style="font-size: 25px;"><strong>{{data.0}}</strong>님 회원가입을 진심으로 축하 드립니다.</p>
+            <p style="font-size: 25px;">고객님의 고려호텔 아이디는 <strong style="color: #ffba00;">{{data.1}}</strong>입니다.</p>
+            <p style="font-size: 18px; color: #999; margin-top: 30px;">회원가입일시 : {{data.2}}</p>
+            <div style="display: flex; justify-content: center; margin-top: 70px;">
+                <button type="button" onclick="location.href='/hotel/index'" style="padding: 20px 35px; font-size: 18px; color: #fff; background: #000; margin-right: 15px;">메인으로 가기</button>
+                <button type="button" onclick="location.href='/hotel/room'" style="padding: 20px 35px; font-size: 18px; color: #000; background: #ffba00;">예약하러 가기</button>
+            </div>
+        </div>
+>>>>>>> bcb163ffdf3e5ab0e48f38d426227d1108b397b7
         {% include 'hotelapp/include/footer.html' %}
     </body>
 </html>

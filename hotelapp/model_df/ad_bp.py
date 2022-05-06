@@ -30,8 +30,13 @@ def get_Buyer():
     conn= cx_Oracle.connect('hotel','dbdb',dsn)
     
     cursor= conn.cursor()
+<<<<<<< HEAD
     sql = """ select buyer_id, buyer_name, buyer_add, '0'||buyer_tel, nvl(prod_type,'거래 전'), buyer_email, buyer_charger, buyer_bank, buyer_bankno, buyer_bankname
             from buyer left join prod
+=======
+    sql = """ select buyer_id, buyer_name, buyer_add, '0'||buyer_tel, nvl(prod_type,'거래 전'), buyer_email, buyer_charger, buyer_bank, buyer_bankno, buyer_bankname 
+              from buyer left join prod
+>>>>>>> bcb163ffdf3e5ab0e48f38d426227d1108b397b7
                 on(buyer_id = prod_buyer)
     """
     cursor.execute(sql)

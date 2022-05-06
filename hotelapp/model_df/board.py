@@ -31,6 +31,7 @@ def board():
     bd = pd.DataFrame(row, columns = col)
 
     return row
+<<<<<<< HEAD
 
 def get_Event():
     dsn= cx_Oracle.makedsn('localhost',1521,'xe')
@@ -54,3 +55,5 @@ def get_Event():
         
     df = pd.DataFrame(row, columns=col)
     return row
+=======
+>>>>>>> bcb163ffdf3e5ab0e48f38d426227d1108b397b7
