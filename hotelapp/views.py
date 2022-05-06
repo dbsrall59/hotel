@@ -163,3 +163,9 @@ def event(request):
     eve = et.get_event()
     asdf = {"eve" : eve}
     return render(request, 'hotelapp/event.html', asdf)
+
+
+def join_suc(request):
+    id = request.GET.get('mem_id')
+    pw = request.GET.get('mem_pw')
+    result = sql.join(id,pw)

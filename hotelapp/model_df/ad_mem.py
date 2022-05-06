@@ -50,10 +50,16 @@ order by mem_inid asc"""
     
     return row
 
-def join():
+def join(id, pw):
     dsn = cx_Oracle.makedsn('localhost', 1521, 'xe')
     conn = cx_Oracle.connect('hotel', 'dbdb', dsn)
     cursor = conn.cursor()
+    
+    sql = """insert into member (mem_id, mem_pw) values('"""
+    sql += id
+    sql += "','"
+    sql += pw
+    sql += "')"
     
     sql = """insert into member
 (MEM_ID,MEM_PW,MEM_REGNO,MEM_STAFF,MEM_CARDNO,MEM_CDPW,MEM_GENDER,MEM_TEL,MEM_EMAIL,MEM_NAME,MEM_ADD,MEM_DATE)
