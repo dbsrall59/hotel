@@ -38,49 +38,45 @@ def login_ing(request):
     
     result = lg.login(id, pw)
     
-    if result == 0 :
+    if len(result) == 0 :
         return render(request,"hotelapp/login.html", {})
     
     html = render(request, 'hotelapp/index.html', {})
     html.set_cookie('mem_id', id, max_age=None)
     html.set_cookie('mem_pw', pw, max_age=None)
+    html.set_cookie('mem_inid', result[0], max_age=None)
     
     return html
     
-        
-    
-def ad_mem(request):
-    return render(request,
-                  "hotelapp/ad_mem.html", {})
     
 def ad_reserve(request):
     return render(request,
-                  "hotelapp/ad_reserve.html", {})
+                "hotelapp/ad_reserve.html", {})
     
 def ad_room(request):
     return render(request,
-                  "hotelapp/ad_room.html", {})
+                "hotelapp/ad_room.html", {})
 def board(request):
     return render(request,
-                  "hotelapp/board.html", {})
+                "hotelapp/board.html", {})
 def twin(request):
     return render(request,
-                  "hotelapp/room/twin.html", {})
+                "hotelapp/room/twin.html", {})
 def suite(request):
     return render(request,
-                  "hotelapp/room/suite.html", {})
+                "hotelapp/room/suite.html", {})
 def deluxe(request):
     return render(request,
-                  "hotelapp/room/deluxe.html", {})
+                "hotelapp/room/deluxe.html", {})
 def bussiness(request):
     return render(request,
-                  "hotelapp/room/bussiness.html", {})
+                "hotelapp/room/bussiness.html", {})
 def board_write(request):
     return render(request,
-                  "hotelapp/board_write.html", {})
+                "hotelapp/board_write.html", {})
 def board_done(request):
     return render(request,
-                  "hotelapp/board_done.html", {})
+                "hotelapp/board_done.html", {})
 def buyer(request):
     buyer = bp.get_Buyer()
     context = {"buyer":buyer}
@@ -104,14 +100,30 @@ def board(request):
                     context)
     
 def reserve(request):
-    df = re.getReserve_list()
-    context = {"df" : df}
     return render(request,
-                    "hotelapp/reserve.html", context)
+                    "hotelapp/reserve.html", {})
 
 def reserve_info(request):
-    df1 = re.getReserve_info1()
-    df2 = re.getReserve_info2()
+    mem = request.COOKIES['mem_inid']
+    if request.GET.get('res_rmnum') == "오션뷰":
+        rmnum = str(501)
+    elif request.GET.get('res_rmnum') == "마운틴뷰":
+        rmnum = str(503)
+    else:
+        rmnum = str(505)
+    c_in = request.GET.get('res_in')
+    c_out = request.GET.get('res_out')
+    adult= request.GET.get('res_adult')
+    kid= request.GET.get('res_kid')
+    baby= request.GET.get('res_baby')
+    name = request.GET.get('mem_name')
+    email = request.GET.get('mem_email')
+    tel = request.GET.get('mem_tel')
+    cardno = request.GET.get('mem_cardno')
+    cardpw = request.GET.get('mem_cardpw')
+    
+    df1 = re.getReserve_list(mem, rmnum, c_in, c_out, adult, kid, baby, name, email, tel, cardno, cardpw)
+    df2 = re.getReserve_list(mem, rmnum, c_in, c_out, adult, kid, baby,  name, email, tel, cardno, cardpw)
     context = {"df1" : df1, "df2" : df2}
     return render(request,
                     "hotelapp/reserve_info.html", context)
@@ -147,6 +159,12 @@ def update_suc(request):
 
 def ad_mem(request):
     result = adm.adminMemberShow()
+
+    data = {"data" : result}
+    return render(request, 'hotelapp/ad_mem.html', data)
+
+def ad_mem_delete(request, inid):
+    result = adm.adminMemberDelete(str(inid))
     
     data = {"data" : result}
     return render(request, 'hotelapp/ad_mem.html', data)
@@ -166,7 +184,7 @@ def event(request):
 
 def join(request):
     return render(request, 'hotelapp/join.html', {})
- 
+
 def join_suc(request):
     id = request.GET.get('mem_id')
     pw = request.GET.get('mem_pw')

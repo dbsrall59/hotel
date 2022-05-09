@@ -1,6 +1,7 @@
 import pandas as pd
 import cx_Oracle
 
+
 def select_basic():
     dsn = cx_Oracle.makedsn('localhost', 1521, 'xe')
     conn = cx_Oracle.connect('hotel', 'dbdb', dsn)
@@ -52,6 +53,43 @@ def adminMemberShow():
     
     return row
 
+def adminMemberDelete(id):
+    dsn = cx_Oracle.makedsn('localhost', 1521, 'xe')
+    conn = cx_Oracle.connect('hotel', 'dbdb', dsn)
+    cursor = conn.cursor()
+    
+    sql = """delete from reserve where res_mem = """
+    sql += id
+    cursor.execute(sql)
+    
+    sql = """delete from post where post_mem = """
+    sql += id
+    cursor.execute(sql)
+    
+    sql = """delete from member where mem_inid = """
+    sql += id
+    cursor.execute(sql)
+    
+    conn.commit()
+    
+    sql = """select mem_inid as A, mem_id, mem_inid, mem_name, mem_email, 
+            '0' || to_char(mem_tel),
+            decode(trunc(mem_regno / 100000), 0, to_date(20000000 + mem_regno, 'yyyymmdd'), to_date(19000000 + mem_regno, 'yyyymmdd')) as mem_bir, 
+            decode(mem_gender, 1, '남성', '여성') as mem_gender, 
+            mem_add, mem_date
+            from member
+            order by mem_inid asc"""
+
+    
+    cursor.execute(sql)
+    row = cursor.fetchall()
+    
+    cursor.close()
+    conn.close()    
+    
+    return row
+
+
 def join(id, pw, m_name, m_email, tel, regno, gender):
     dsn = cx_Oracle.makedsn('localhost', 1521, 'xe')
     conn = cx_Oracle.connect('hotel', 'dbdb', dsn)
@@ -74,7 +112,7 @@ def join(id, pw, m_name, m_email, tel, regno, gender):
     sql += "','"
     sql += '20220506'    
     sql += "','"
-    sql += '세종'    
+    sql += '세종시 조치원'    
     sql += "','"
     sql += '0'    
     sql += "','"
