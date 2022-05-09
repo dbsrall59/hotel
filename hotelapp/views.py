@@ -47,11 +47,6 @@ def login_ing(request):
     
     return html
     
-        
-    
-def ad_mem(request):
-    return render(request,
-                  "hotelapp/ad_mem.html", {})
     
 def ad_reserve(request):
     return render(request,
@@ -147,6 +142,12 @@ def update_suc(request):
 
 def ad_mem(request):
     result = adm.adminMemberShow()
+    
+    data = {"data" : result}
+    return render(request, 'hotelapp/ad_mem.html', data)
+
+def ad_mem_delete(request, inid):
+    result = adm.adminMemberDelete(str(inid))
     
     data = {"data" : result}
     return render(request, 'hotelapp/ad_mem.html', data)
