@@ -142,7 +142,12 @@ def ad_room(request):
     
 def ad_reserve(request):
     asdf = adre.ad_Reserve()
-    context = {"aa" : asdf} 
+    
+    pg = Paginator(asdf, 5)
+    page = int(request.GET.get('page', 1))
+    board_list = pg.get_page(page)
+    
+    context = {"board_list" : board_list} 
     return render(request,
                 "hotelapp/ad_reserve.html", context)
 
