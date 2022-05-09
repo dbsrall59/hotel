@@ -1,4 +1,6 @@
+from pickle import FALSE
 from django.shortcuts import render
+
 from django.http import HttpResponse
 import hotelapp.model_df.board as bod
 import hotelapp.model_df.reserve as re
@@ -8,6 +10,7 @@ import hotelapp.model_df.ad_reserve as adre
 import hotelapp.model_df.test as ts
 import hotelapp.model_df.ad_bp as bp
 import hotelapp.model_df.event as et
+import hotelapp.model_df.login as lg
 
 def index(request):
     return render(request,
@@ -28,8 +31,23 @@ def hotel_info(request):
     return render(request,
                   "hotelapp/hotel_info.html", {})
 def login(request):
-    return render(request,
-                  "hotelapp/login.html", {})
+    return render(request,"hotelapp/login.html", {})
+def login_ing(request):
+    id = request.GET.get("mem_id")
+    pw = request.GET.get("mem_pw")
+    
+    result = lg.login(id, pw)
+    
+    if result == 0 :
+        return render(request,"hotelapp/login.html", {})
+    
+    html = render(request, 'hotelapp/index.html', {})
+    html.set_cookie('mem_id', id, max_age=None)
+    html.set_cookie('mem_pw', pw, max_age=None)
+    
+    return html
+    
+        
     
 def ad_mem(request):
     return render(request,
@@ -63,28 +81,19 @@ def board_write(request):
 def board_done(request):
     return render(request,
                   "hotelapp/board_done.html", {})
-def update(request):
-    return render(request,
-                  "hotelapp/update.html", {})
-def update_suc(request):
-    return render(request,
-                  "hotelapp/update_suc.html", {})
 def buyer(request):
     buyer = bp.get_Buyer()
     context = {"buyer":buyer}
     return render(request,
-                  "hotelapp/ad_buyer.html", context)
+                "hotelapp/ad_buyer.html", context)
 def prod(request):
     prod = bp.get_Prod()
     context = {"prod":prod}
     return render(request,
-                  "hotelapp/ad_prod.html", context)
+                "hotelapp/ad_prod.html", context)
 def event(request):
     return render(request,
-                  "hotelapp/event.html", {})
-
-
-
+                "hotelapp/event.html", {})
 
 def board(request):
     bd = bod.board()
@@ -117,21 +126,24 @@ def ad_reserve(request):
     asdf = adre.ad_Reserve()
     context = {"aa" : asdf} 
     return render(request,
-                  "hotelapp/ad_reserve.html", context)
- 
-    
-    
+                "hotelapp/ad_reserve.html", context)
 
 def update(request):
-    result = adm.update()
+    id = request.COOKIES['mem_id']
+    result = adm.update(id)
     data = {"data" : result}
+    
     return render(request, 'hotelapp/update.html', data)
- 
-def update_suc(request):
-    result = adm.update()
-    data = {"data" : result}
-    return render(request, 'hotelapp/update_suc.html', data)
 
+
+def update_suc(request):
+    pw = request.GET.get('mem_pw')
+    regno = request.GET.get('mem_regno')
+    tel = request.GET.get('mem_tel')
+    email = request.GET.get('mem_email')
+    result = adm.update_suc(pw, regno, tel, email)
+    
+    return render(request, 'hotelapp/update_suc.html', {})
 
 def ad_mem(request):
     result = adm.adminMemberShow()
@@ -139,24 +151,16 @@ def ad_mem(request):
     data = {"data" : result}
     return render(request, 'hotelapp/ad_mem.html', data)
 
-
-
-
-
 def plot(request):
     ts.get_Plot()
     ts.test()
     ts.monthlycount()
     return render(request, 'hotelapp/plot.html', {})
 
-
-
-
 def event(request):
     eve = et.get_event()
     asdf = {"eve" : eve}
     return render(request, 'hotelapp/event.html', asdf)
-
 
 
 
