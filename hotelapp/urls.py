@@ -21,6 +21,7 @@ urlpatterns = [
     path('board/',views.board),
     path('reserve/',views.reserve),
     path('reserve_info/',views.reserve_info),
+    path('reserve_in4/',views.reserve_in4),
     path('ad_room/',views.ad_room),
     path('board/',views.board),
     path('ad_reserve/',views.ad_reserve),

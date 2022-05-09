@@ -125,6 +125,13 @@ def reserve_info(request):
     return render(request,
                     "hotelapp/reserve_info.html", context)
     
+def reserve_in4(request):
+    mem = request.COOKIES['mem_inid']
+    info = re.getReserve_info1(mem)
+    context = {"info": info}
+    return render(request,
+                'hotelapp/reserve_in4.html', context)
+    
 def ad_room(request):
     adr = ar.ad_room()
     context = {"adr" : adr}
