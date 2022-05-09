@@ -1,3 +1,4 @@
+from pickle import FALSE
 from django.shortcuts import render
 
 from django.http import HttpResponse
@@ -9,6 +10,7 @@ import hotelapp.model_df.ad_reserve as adre
 import hotelapp.model_df.test as ts
 import hotelapp.model_df.ad_bp as bp
 import hotelapp.model_df.event as et
+import hotelapp.model_df.login as lg
 
 def index(request):
     return render(request,
@@ -29,8 +31,23 @@ def hotel_info(request):
     return render(request,
                   "hotelapp/hotel_info.html", {})
 def login(request):
-    return render(request,
-                  "hotelapp/login.html", {})
+    return render(request,"hotelapp/login.html", {})
+def login_ing(request):
+    id = request.GET.get("mem_id")
+    pw = request.GET.get("mem_pw")
+    
+    result = lg.login(id, pw)
+    
+    if result == 0 :
+        return render(request,"hotelapp/login.html", {})
+    
+    html = render(request, 'hotelapp/index.html', {})
+    html.set_cookie('mem_id', id, max_age=None)
+    html.set_cookie('mem_pw', pw, max_age=None)
+    
+    return html
+    
+        
     
 def ad_mem(request):
     return render(request,
@@ -64,12 +81,6 @@ def board_write(request):
 def board_done(request):
     return render(request,
                   "hotelapp/board_done.html", {})
-def update(request):
-    return render(request,
-                  "hotelapp/update.html", {})
-def update_suc(request):
-    return render(request,
-                  "hotelapp/update_suc.html", {})
 def buyer(request):
     buyer = bp.get_Buyer()
     context = {"buyer":buyer}
@@ -97,13 +108,25 @@ def reserve(request):
                     "hotelapp/reserve.html", {})
 
 def reserve_info(request):
+    if request.GET.get('res_rmnum') == "오션뷰":
+        rmnum = str(501)
+    elif request.GET.get('res_rmnum') == "시티뷰":
+        rmnum = str(503)
+    else:
+        rmnum = str(505)
     c_in = request.GET.get('res_in')
     c_out = request.GET.get('res_out')
     adult= request.GET.get('res_adult')
     kid= request.GET.get('res_kid')
     baby= request.GET.get('res_baby')
-    df1 = re.getReserve_list(c_in, c_out, adult, kid, baby)
-    df2 = re.getReserve_list(c_in, c_out, adult, kid, baby)
+    name = request.GET.get('mem_name')
+    email = request.GET.get('mem_email')
+    tel = request.GET.get('mem_tel')
+    cardno = request.GET.get('mem_cardno')
+    cardpw = request.GET.get('mem_cardpw')
+    
+    df1 = re.getReserve_list(rmnum, c_in, c_out, adult, kid, baby, name, email, tel, cardno, cardpw)
+    df2 = re.getReserve_list(rmnum, c_in, c_out, adult, kid, baby,  name, email, tel, cardno, cardpw)
     context = {"df1" : df1, "df2" : df2}
     return render(request,
                     "hotelapp/reserve_info.html", context)
@@ -121,16 +144,21 @@ def ad_reserve(request):
                 "hotelapp/ad_reserve.html", context)
 
 def update(request):
-    result = adm.update()
+    id = request.COOKIES['mem_id']
+    result = adm.update(id)
     data = {"data" : result}
+    
     return render(request, 'hotelapp/update.html', data)
 
 
 def update_suc(request):
-    result = adm.update()
+    pw = request.GET.get('mem_pw')
+    regno = request.GET.get('mem_regno')
+    tel = request.GET.get('mem_tel')
+    email = request.GET.get('mem_email')
+    result = adm.update_suc(pw, regno, tel, email)
     
-    data = {"data" : result}
-    return render(request, 'hotelapp/update_suc.html', data)
+    return render(request, 'hotelapp/update_suc.html', {})
 
 def ad_mem(request):
     result = adm.adminMemberShow()

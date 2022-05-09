@@ -1,7 +1,11 @@
+import email
+import telnetlib
+from unicodedata import name
+from matplotlib.colors import TwoSlopeNorm
 import pandas as pd
 import cx_Oracle
 
-def getReserve_list( c_in, c_out, adult, kid, baby ):
+def getReserve_list(mem, rmnum, c_in, c_out, adult, kid, baby, name, email, tel, cardno, cardpw):
     
     dsn=cx_Oracle.makedsn('localhost',1521,'xe')
     conn = cx_Oracle.connect('hotel','dbdb',dsn)
@@ -10,9 +14,9 @@ def getReserve_list( c_in, c_out, adult, kid, baby ):
     sql=""" insert into reserve(res_mem, res_rmnum, res_in, res_out, res_date, res_price, res_adult, res_kid, res_baby)
             values ('
     """
-    sql+= '32'
+    sql+= mem
     sql+="','"
-    sql+= '503'
+    sql+= rmnum
     sql+="','"
     sql+= str(c_in)
     sql+="','"
@@ -28,11 +32,26 @@ def getReserve_list( c_in, c_out, adult, kid, baby ):
     sql+="','"
     sql+= baby
     sql+="')"
+    cursor.execute(sql)
+    conn.commit()
 
+    sql="""update member set mem_name = '"""
+    sql += name
+    sql += "', mem_email ='"
+    sql += email
+    sql += "', mem_tel ='"
+    sql += tel
+    sql += "', mem_cardno ='"
+    sql += cardno
+    sql += "', mem_cdpw = '"
+    sql += cardpw
+    sql += "'where mem_inid ='"
+    sql += '32'
+    sql += "'"
     cursor.execute(sql)
     conn.commit()
     
-    sql="""select res_in, res_out, (res_adult + res_kid + res_baby)as 총인원수, event_title, event_code, (room_sale*0.85)as 지불가격
+    sql="""select res_rmnum, res_in, res_out, (res_adult + res_kid + res_baby)as 총인원수, event_title, event_code, (room_sale*0.85)as 지불가격
             from reserve inner join rmnum
                 on (res_rmnum = rmnum_id)
                 inner join room
@@ -44,8 +63,7 @@ def getReserve_list( c_in, c_out, adult, kid, baby ):
                 where res_mem = '"""
     sql+= "32"
     sql+="'"
-                # 32
-                # and extract(year from res_in)= 2022"""
+
     cursor.execute(sql)
 
     row = cursor.fetchall()

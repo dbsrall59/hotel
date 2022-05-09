@@ -36,10 +36,10 @@
                 <li>
                     <p>객실 선호 전망</p>
                     <select>
-                        <option>선택</option>
-                        <option>오션뷰</option>
-                        <option>마운틴뷰</option>
-                        <option>시티뷰</option>
+                        <option name="res_num">선택</option>
+                        <option name="res_num">오션뷰</option>
+                        <option name="res_num">마운틴뷰</option>
+                        <option name="res_num">시티뷰</option>
                     </select>
                 </li>
                 <li>
@@ -125,7 +125,7 @@
             {%endfor%} -->
         </table>
         <a style="background:#000; color:#fff; display: inline-block; padding: 20px 50px; margin-top: 20px; font-size: 18px;" href="/hotel/room/">취소</a>
-        <input type="submit" style="background:#ffba00; color:#000; display: inline-block; padding: 20px 50px; margin-top: 20px; font-size: 18px;" >
+        <input type="submit" value="예약완료" style="background:#ffba00; color:#000; display: inline-block; padding: 20px 50px; margin-top: 20px; font-size: 18px;" >
         </form>
     </div>
     {% include 'hotelapp/include/footer.html' %}

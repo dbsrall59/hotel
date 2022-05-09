@@ -27,6 +27,7 @@ urlpatterns = [
     path('ad_reserve/',views.ad_reserve),
     path('ad_mem/',views.ad_mem),
     path('login/',views.login),
+    path('login_ing/',views.login_ing),
     path('hotel_info/',views.hotel_info),
     path('room/',views.room),
     path('index/',views.index),
