@@ -146,3 +146,32 @@ footer {
     content:"";
 }
 
+.page_wr {
+    padding: 50px 0; 
+    text-align:center; 
+}
+.page_wr a {
+    font-size: 18px;
+    color: #555;
+    width: 40px; height: 40px; line-height: 40px;
+    border: 1px solid #ddd;
+    margin: 0 2px;
+    display: inline-block;
+}
+.page_wr a:hover {
+    text-decoration: none;
+    background: #eee;
+    color: #000;
+}
+.abutton {
+    display: inline-block;
+    width: 40px; height: 40px; line-height: 40px;
+    color: #555;
+    font-size: 18px;
+    border: 1px solid #ddd;
+    margin: 0 2px;
+}
+.current a {
+    background: #000;
+    color: #fff;
+}
