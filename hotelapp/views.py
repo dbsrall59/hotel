@@ -1,7 +1,8 @@
 from pickle import FALSE
 from django.shortcuts import render
-
 from django.http import HttpResponse
+from django.core.paginator import Paginator
+
 import hotelapp.model_df.board as bod
 import hotelapp.model_df.reserve as re
 import hotelapp.model_df.ad_room as ar
@@ -56,9 +57,6 @@ def ad_reserve(request):
 def ad_room(request):
     return render(request,
                 "hotelapp/ad_room.html", {})
-def board(request):
-    return render(request,
-                "hotelapp/board.html", {})
 def twin(request):
     return render(request,
                 "hotelapp/room/twin.html", {})
@@ -91,7 +89,11 @@ def event(request):
 def board(request):
     bd = bod.board()
     
-    context = {"bd" : bd}
+    pg = Paginator(bd, 5)
+    page = int(request.GET.get('page', 1))
+    board_list = pg.get_page(page)
+    
+    context = {"board_list" : board_list}
     return render(request,
                     "hotelapp/board.html",
                     context)
