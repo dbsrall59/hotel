@@ -28,7 +28,7 @@
     <div class="aa"style="margin: 10px auto 100px; width: 1200px;">
         <IMG SRC= "{% static 'hotelapp/img/room4.png'%}">
         <h2>저희 고려호텔을 찾아 주셔서 감사합니다.</h2>
-        <form>
+        <form action="/hotel/reserve_info" method="get">
             <ul>
                 <li>
                     <p>*는 필수 선택 사항 입니다.</p>
@@ -36,40 +36,51 @@
                 <li>
                     <p>객실 선호 전망</p>
                     <select>
-                        <option>선택</option>
-                        <option>오션뷰</option>
-                        <option>마운틴뷰</option>
-                        <option>시티뷰</option>
+                        <option name="res_num">선택</option>
+                        <option name="res_num">오션뷰</option>
+                        <option name="res_num">마운틴뷰</option>
+                        <option name="res_num">시티뷰</option>
                     </select>
                 </li>
                 <li>
                     <p>*이름</p>
-                    <input type="text" name="이름" placehorder="한글명을 입력해주세요">
+                    <input type="text" placehorder="한글명을 입력해주세요" name="mem_name">
                 </li>
                 <li>
                     <p>이메일</p>
-                    <input type="email" name="이메일" placehorder="asdf@gmail.com">
+                    <input type="email" placehorder="asdf@gmail.com" name="mem_email">
                 </li>
                 <li>
                     <p>*핸드폰 번호(-제외)</p>
-                    <input type="tel" name="핸드폰 번호">
+                    <input type="tel"  name="mem_tel">
                 </li>
                 <li>
                     <p>*생일</p>
-                    <input type="date" name="생일">
+                    <input type="number"  placeholder="예) 881231" name="mem_regno">
                 </li>
                 <li>
-                    <p>*성별</p>
-                    <select>
-                        <option>선택</option>
-                        <option>남성</option>
-                        <option>여성</option>
-                    </select>
+                    <p>*체크인</p>
+                    <input type="date" name="res_in">
+                </li>
+                <li>
+                    <p>*체크아웃</p>
+                    <input type="date" name="res_out">
+                </li>
+                <li>
+                    <p>*인원수:성인</p>
+                    <input type="number" name="res_adult">
+                </li>
+                <li>
+                    <p>*인원수:어린이</p>
+                    <input type="number" name="res_kid">
+                </li>
+                <li>
+                    <p>*인원수:아기</p>
+                    <input type="number" name="res_baby">
                 </li>
                 <li>
                     <p>*카드선택</p>
                     <select>
-                        <option>선택</option>
                         <option>우리은행</option>
                         <option>국민은행</option>
                         <option>농협은행</option>
@@ -78,7 +89,7 @@
                 </li>
                 <li>
                     <p>*카드번호</p>
-                    <input type ="number" value="숫자만 입력">
+                    <input type ="number" value="숫자만 입력" name="mem_cardno">
                 </li>
                 <li>
                     <p>*카드 년 월</p>
@@ -86,16 +97,17 @@
                 </li>
                 <li>
                     <p>*카드 비밀번호 앞 두자리</p>
-                    <input type ="number">
+                    <input type ="number" name="mem_cardpw">
                 </li>
                 <li>
                     <p>할인 코드</p>
-                    <input type ="text"> 
+                    <input type ="text" >   
+                    <!-- name="event_code" -->
                 </li>
             </ul>
-        </form>
+        
         <hr>
-        <table border="1" class="tb">
+        <!-- <table border="1" class="tb">
             <tr>
                 <th>체크인</th>
                 <th>체크아웃</th>
@@ -103,17 +115,18 @@
                 <th>이벤트</th>
                 <th>할인코드</th>
                 <th>지불한 가격</th>
-            </tr>
-            {% for col in df %}
+            </tr> -->
+            <!-- {% for col in df %}
             <tr>
                 {% for data in col %}
                 <td>{{data}}</td>
                 {%endfor%}
             </tr>
-            {%endfor%}
+            {%endfor%} -->
         </table>
         <a style="background:#000; color:#fff; display: inline-block; padding: 20px 50px; margin-top: 20px; font-size: 18px;" href="/hotel/room/">취소</a>
-        <a style="background:#ffba00; color:#000; display: inline-block; padding: 20px 50px; margin-top: 20px; font-size: 18px;" href="/hotel/reserve_info">예약 완료</a>
+        <input type="submit" value="예약완료" style="background:#ffba00; color:#000; display: inline-block; padding: 20px 50px; margin-top: 20px; font-size: 18px;" >
+        </form>
     </div>
     {% include 'hotelapp/include/footer.html' %}
 </body>

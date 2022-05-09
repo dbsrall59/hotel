@@ -13,6 +13,6 @@ def login(id, pw):
     
     
     cursor.execute(sql)
-    row = cursor.fetchall()
+    row = cursor.fetchone()
     
-    return len(row)
+    return row

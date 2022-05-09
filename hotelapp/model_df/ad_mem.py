@@ -1,6 +1,7 @@
 import pandas as pd
 import cx_Oracle
 
+
 def select_basic():
     dsn = cx_Oracle.makedsn('localhost', 1521, 'xe')
     conn = cx_Oracle.connect('hotel', 'dbdb', dsn)
@@ -111,7 +112,7 @@ def join(id, pw, m_name, m_email, tel, regno, gender):
     sql += "','"
     sql += '20220506'    
     sql += "','"
-    sql += '세종'    
+    sql += '세종시 조치원'    
     sql += "','"
     sql += '0'    
     sql += "','"

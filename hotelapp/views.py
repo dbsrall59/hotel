@@ -38,12 +38,13 @@ def login_ing(request):
     
     result = lg.login(id, pw)
     
-    if result == 0 :
+    if len(result) == 0 :
         return render(request,"hotelapp/login.html", {})
     
     html = render(request, 'hotelapp/index.html', {})
     html.set_cookie('mem_id', id, max_age=None)
     html.set_cookie('mem_pw', pw, max_age=None)
+    html.set_cookie('mem_inid', result[0], max_age=None)
     
     return html
     
@@ -99,14 +100,30 @@ def board(request):
                     context)
     
 def reserve(request):
-    df = re.getReserve_list()
-    context = {"df" : df}
     return render(request,
-                    "hotelapp/reserve.html", context)
+                    "hotelapp/reserve.html", {})
 
 def reserve_info(request):
-    df1 = re.getReserve_info1()
-    df2 = re.getReserve_info2()
+    mem = request.COOKIES['mem_inid']
+    if request.GET.get('res_rmnum') == "오션뷰":
+        rmnum = str(501)
+    elif request.GET.get('res_rmnum') == "시티뷰":
+        rmnum = str(503)
+    else:
+        rmnum = str(505)
+    c_in = request.GET.get('res_in')
+    c_out = request.GET.get('res_out')
+    adult= request.GET.get('res_adult')
+    kid= request.GET.get('res_kid')
+    baby= request.GET.get('res_baby')
+    name = request.GET.get('mem_name')
+    email = request.GET.get('mem_email')
+    tel = request.GET.get('mem_tel')
+    cardno = request.GET.get('mem_cardno')
+    cardpw = request.GET.get('mem_cardpw')
+    
+    df1 = re.getReserve_list(mem, rmnum, c_in, c_out, adult, kid, baby, name, email, tel, cardno, cardpw)
+    df2 = re.getReserve_list(mem, rmnum, c_in, c_out, adult, kid, baby,  name, email, tel, cardno, cardpw)
     context = {"df1" : df1, "df2" : df2}
     return render(request,
                     "hotelapp/reserve_info.html", context)
@@ -142,7 +159,7 @@ def update_suc(request):
 
 def ad_mem(request):
     result = adm.adminMemberShow()
-    
+
     data = {"data" : result}
     return render(request, 'hotelapp/ad_mem.html', data)
 
@@ -167,7 +184,7 @@ def event(request):
 
 def join(request):
     return render(request, 'hotelapp/join.html', {})
- 
+
 def join_suc(request):
     id = request.GET.get('mem_id')
     pw = request.GET.get('mem_pw')
