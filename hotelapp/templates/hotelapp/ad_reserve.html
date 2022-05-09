@@ -56,7 +56,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for col in aa %}
+                    {% for col in board_list %}
                     <tr>
                         {% for data in col %}
                         <td>{{data}}</td>
@@ -66,6 +66,27 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <div class="page_wr">
+                {% if board_list.has_previous %}
+                    <a class="abutton" href="?page=1"><<</a>
+                    <a class="abutton" href="?page={{ board_list.previous_page_number }}"><</a>
+                {% endif %}
+
+                {% for page in board_list.paginator.page_range %}
+                    {% if page >= board_list.number|add:-2 and page <= board_list.number|add:2 %}
+                    <span class="{% if page == board_list.number %}current{% endif %}">
+                        <a href="?page={{ page }}">{{ page}}</a>
+                    </span>
+                    {% elif page >= board_list.number|add:-3 and page <= board_list.number|add:3 %}
+
+                    {% endif %}
+                {% endfor %}
+
+                {% if board_list.has_next %}
+                    <a class="abutton" href="?page={{ board_list.next_page_number }}">></a>
+                    <a class="abutton" href="?page={{ board_list.paginator.num_pages }}">>></a>
+                {% endif %}
+            </div>
         </div>
     </body>
 </html>
