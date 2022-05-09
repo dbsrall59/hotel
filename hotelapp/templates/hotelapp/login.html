@@ -50,7 +50,8 @@
         </style>
     </head>
     <body>
-        {% include 'hotelapp/include/nav.html' %}
+        {% include 'hotelapp/include/nav.html' %}\
+        
         <div style="background: #f9f9f9; padding: 60px 0;">
             <div style="width: 1200px; margin:0 auto;">
                 <ul>
@@ -59,18 +60,21 @@
                     <li class="title_bla">로그인을 하시고 더욱 편리하게 이용하세요.</li>
                 </ul>
                 <div style="display:flex;" class="login">
+                    
                     <ul style="width: 50%; padding-right: 70px; border-right: 1px solid #ddd;"> 
-                        <li><input type="text" placeholder="이메일"></li>
-                        <li><input type="password" placeholder="비밀번호"></li>  
-                        <li><a href="/hotel/index" style="background: #000; color:#fff; margin-top: 20px;">로그인</a></li>
-
-                    </ul>
+                        <form action="/hotel/login_ing" method="get">
+                            <li><input name="mem_id" type="text" placeholder="아이디"></li>
+                            <li><input name="mem_pw" type="password" placeholder="비밀번호"></li>  
+                            <li><input type="submit" style="background: #000; color:#fff; margin-top: 20px;" value="로그인"></li>
+                        </form>
+                    </ul> 
+                    
                     <div style="width: 50%; padding-left: 70px;">   
                         <h3 class="title">아직 회원이 아니신가요?</h3>
                         <p  class="title_bla">고려호텔 회원이 되시면 회원만을 위한 더 큰 혜택과 서비스를 받으실 수 있습니다.</p>
                         <a href="/hotel/join" style="border: 1px solid #000; background: #fff; margin-top: 50px;">회원가입</a>
                     </div>
-                </div>
+                </div>                
             </div>
         </div>
         <div style="width: 1200px; margin: 0 auto; text-align: center; padding: 50px 0;">

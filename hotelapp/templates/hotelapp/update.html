@@ -30,43 +30,45 @@
         {% include 'hotelapp/include/nav.html' %}
         <div style="width: 1200px; margin: 0 auto;">
             <h3 style="margin: 30px 0 50px;">회원정보</h3>
-            <table class="up_tb">
-                <tbody>
-                    <tr>
-                        <th>이름</th>
-                        <td>{{data.0}}</td>
-                    </tr>
-                    <tr>
-                        <th>아이디</th>
-                        <td>{{data.1}}</td>
-                    </tr>
-                    <tr>
-                        <th>패스워드</th>
-                        <td><input value="{{data.6}}" type="password"></td>
-                    </tr>
-                    <tr>
-                        <th>패스워드 확인</th>
-                        <td><input value="" type="password"></td>
-                    </tr>
-                    <tr>
-                        <th>생일</th>
-                        <td><input value="{{data.3}}"></td>
-                    </tr>
-                    <tr>
-                        <th>성별</th>
-                        <td>{{data.4}}</td>
-                    </tr>
-                    <tr>
-                        <th>휴대전화</th>
-                        <td><input value="{{data.2}}"></td>
-                    </tr>
-                    <tr>
-                        <th>이메일</th>
-                        <td><input value="{{data.5}}"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <button type="button" onclick="location.href='/hotel/update_suc'">수정</a></button>
+            <form action="/hotel/update_suc" method="get">
+                <table class="up_tb">
+                    <tbody>
+                        <tr>
+                            <th>이름</th>
+                            <td>{{data.0}}</td>
+                        </tr>
+                        <tr>
+                            <th>아이디</th>
+                            <td>{{data.1}}</td>
+                        </tr>
+                        <tr>
+                            <th>패스워드</th>
+                            <td><input name="mem_pw" value="{{data.2}}" type="password"></td>
+                        </tr>
+                        <tr>
+                            <th>패스워드 확인</th>
+                            <td><input value="{{data.2}}" type="password"></td>
+                        </tr>
+                        <tr>
+                            <th>생일</th>
+                            <td><input name="mem_regno" value="{{data.3}}"></td>
+                        </tr>
+                        <tr>
+                            <th>성별</th>
+                            <td>{{data.4}}</td>
+                        </tr>
+                        <tr>
+                            <th>휴대전화</th>
+                            <td><input name="mem_tel" value="{{data.5}}"></td>
+                        </tr>
+                        <tr>
+                            <th>이메일</th>
+                            <td><input name="mem_email" value="{{data.6}}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="submit" value="수정"></input>
+            </form>
         </div>
     {% include 'hotelapp/include/footer.html' %}
     </body>

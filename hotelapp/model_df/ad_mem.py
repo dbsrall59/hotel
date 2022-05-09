@@ -36,7 +36,6 @@ def adminMemberShow():
     cursor = conn.cursor()
     
     sql = """select mem_inid as A, mem_id, mem_inid, mem_name, mem_email, 
-
             '0' || to_char(mem_tel),
             decode(trunc(mem_regno / 100000), 0, to_date(20000000 + mem_regno, 'yyyymmdd'), to_date(19000000 + mem_regno, 'yyyymmdd')) as mem_bir, 
             decode(mem_gender, 1, '남성', '여성') as mem_gender, 
@@ -98,27 +97,42 @@ def join(id, pw, m_name, m_email, tel, regno, gender):
     
     return row
 
-def update():
+def update(id):
     dsn = cx_Oracle.makedsn('localhost', 1521, 'xe')
     conn = cx_Oracle.connect('hotel', 'dbdb', dsn)
     cursor = conn.cursor()
     
-    sql = """update member
-    set mem_pw = 'testtest', mem_regno = 900101, mem_tel = 01009876654, mem_email = 'change@gmail.com'
-    where mem_id = 'wow'"""
+    sql = """select mem_name, mem_id, mem_pw, mem_regno, 
+    decode(mem_gender, 1, '남성', '여성'), 
+    mem_tel, mem_email  from member where mem_id = '"""
+    sql += id
+    sql += "'"
 
     cursor.execute(sql)
-    conn.commit()
-    
-    sql = """select mem_name, mem_id, '0'||mem_tel, mem_regno, 
-            decode(mem_gender,
-            1, '남자',
-            2, '여자'), mem_email, mem_pw from member where mem_id = 'wow'"""
-    cursor.execute(sql)
     row = cursor.fetchone()
-    
+ 
     cursor.close()
     conn.close()
     
-    
     return row
+
+def update_suc(pw, regno, tel, email):
+    dsn = cx_Oracle.makedsn('localhost', 1521, 'xe')
+    conn = cx_Oracle.connect('hotel', 'dbdb', dsn)
+    cursor = conn.cursor()
+    
+    sql = """update member set mem_pw = '"""
+    sql += pw
+    sql += "', mem_regno = '"
+    sql += regno
+    sql += "', mem_tel = '"
+    sql += tel
+    sql += "', mem_email = '"
+    sql += email
+    sql += "'"
+    
+    cursor.execute(sql)
+    conn.commit()
+    
+    cursor.close()
+    conn.close()
