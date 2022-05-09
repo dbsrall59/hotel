@@ -4,6 +4,7 @@ import cx_Oracle
 import matplotlib.pyplot as plt
 from matplotlib import font_manager, rc
 import platform
+import os
 
 
 
@@ -47,7 +48,10 @@ def get_Plot():
     plt.title('월별 아이손님의 추이')
     plt.xlabel('month')
     plt.ylabel('kids')
-    plt.savefig('C:/Users/owo/korhrd/hotel/hotelapp/static/hotelapp/img/plot.png')
+    mPath = os.getcwd()
+    rPath = mPath + '/hotelapp/static/hotelapp/img/plot.png'
+    plt.savefig(rPath)
+
 
 
 
@@ -94,12 +98,9 @@ def test():
     plt.title("지역별 방문객의 수")
     plt.xlabel("고객의 지역")
     plt.ylabel("총 방문객 수")
-    plt.savefig("C:/Users/owo/korhrd/hotel/hotelapp/static/hotelapp/img/local_visit.png")
-    #plt.show()
-
-
-
-
+    mPath = os.getcwd()
+    rPath = mPath + '/hotelapp/static/hotelapp/img/local_visit.png'
+    plt.savefig(rPath)
 
 
 def monthlycount():
@@ -133,10 +134,9 @@ def monthlycount():
     plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
     plt.xlabel('월')
     plt.ylabel('방문객')
-    plt.savefig("C:/Users/owo/korhrd/hotel/hotelapp/static/hotelapp/img/monthlycount.png", dpi=300)
-    
-    
-    
+    mPath = os.getcwd()
+    rPath = mPath + '/hotelapp/static/hotelapp/img/monthlycount.png'
+    plt.savefig(rPath)
     
 
 

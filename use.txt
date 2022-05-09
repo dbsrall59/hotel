@@ -1,0 +1,25 @@
+1. join.html에서 
+<form action="/hotel/join_suc" method = "get">  -> url은 현재 페이지(join.html)에서 등록버튼을 누르면 넘어가는 페이지(join_suc.html)로 설정 
+	<input type="text" name="mem_id">    ->name에 sql(=erd)에 등록된 이름이랑 같게 해주자.
+	<input type="password" name="mem_pw">
+</form>  -> 넘겨야할 정보는 폼 태그 안에 있어야함!
+
+2. views.py에서
+def join_suc(request):
+	id = request.GET.get('mem_id')  -> GET : 메소드 / get: 그냥 가져오는 겟???? 
+	pw = request.GET.get('mem_pw')
+	result = sql.join(id,pw)
+
+
+3. ad_mem.py에서
+def join(id,pw):
+	cursor = conn.cursor() 밑에
+	sql = """insert into member (mem_id, mem_pw) values('"""
+	sql += id
+	sql += "','"
+	sql += pw
+	sql += "')"
+
+
+
+conn.commit() 꼭 해주자 그럼 들어간다! 
