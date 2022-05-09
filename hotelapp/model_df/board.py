@@ -55,3 +55,36 @@ def get_Event():
         
     df = pd.DataFrame(row, columns=col)
     return row
+
+
+
+
+
+def bdw(post_mem, post_title, post_cont, post_date, post_hide):
+    dsn = cx_Oracle.makedsn('localhost', 1521, 'xe')
+    conn = cx_Oracle.connect('hotel', 'dbdb', dsn)
+    cursor = conn.cursor()
+    
+    sql = """insert into post (post_mem, post_room, post_title, post_cont, post_hide, post_date, post_count, post_type) values ('"""
+    sql += post_mem
+    sql += "','"
+    sql += '1'
+    sql += "','"
+    sql += post_title
+    sql += "','"
+    sql += post_cont
+    sql += "','"
+    sql += str(post_hide)
+    sql += "','"
+    sql += str(post_date)
+    sql += "','"
+    sql += '1'
+    sql += "','"
+    sql += '1'
+    sql += "')"
+    cursor.execute(sql)
+    conn.commit()
+    
+    cursor.close()
+    conn.close()
+     

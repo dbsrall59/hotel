@@ -74,9 +74,6 @@ def bussiness(request):
 def board_write(request):
     return render(request,
                 "hotelapp/board_write.html", {})
-def board_done(request):
-    return render(request,
-                "hotelapp/board_done.html", {})
 def buyer(request):
     buyer = bp.get_Buyer()
     context = {"buyer":buyer}
@@ -200,3 +197,17 @@ def join_suc(request):
     data = {"data" : result}
     
     return render(request, 'hotelapp/join_suc.html', data)
+
+
+def board_done(request):
+    id = request.COOKIES['mem_inid']
+    ti = request.GET.get('post_title')
+    cont = request.GET.get('post_cont')
+    date = request.GET.get('post_date')
+    if request.GET.get('post_hide') == '비밀글':
+        phide = '1'
+    else:
+        phide = '0'
+    
+    bod.bdw(id, ti, cont, date, phide)
+    return render(request, 'hotelapp/board_done.html', {})
