@@ -31,29 +31,3 @@ def board():
     bd = pd.DataFrame(row, columns = col)
 
     return row
-<<<<<<< HEAD
-
-def get_Event():
-    dsn= cx_Oracle.makedsn('localhost',1521,'xe')
-    conn= cx_Oracle.connect('hotel','dbdb',dsn)
-    cursor=conn.cursor()
-    
-    sql=""" select event_title, event_cont, event_start, event_end
-        from event
-        """
-    cursor.execute(sql)
-    
-    row= cursor.fetchall()
-    colname= cursor.description
-    
-    cursor.close()
-    conn.close()
-    
-    col=[]
-    for i in colname:
-        col.append(i[0])
-        
-    df = pd.DataFrame(row, columns=col)
-    return row
-=======
->>>>>>> bcb163ffdf3e5ab0e48f38d426227d1108b397b7
