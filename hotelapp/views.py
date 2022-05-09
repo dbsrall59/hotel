@@ -51,32 +51,32 @@ def login_ing(request):
     
 def ad_reserve(request):
     return render(request,
-                  "hotelapp/ad_reserve.html", {})
+                "hotelapp/ad_reserve.html", {})
     
 def ad_room(request):
     return render(request,
-                  "hotelapp/ad_room.html", {})
+                "hotelapp/ad_room.html", {})
 def board(request):
     return render(request,
-                  "hotelapp/board.html", {})
+                "hotelapp/board.html", {})
 def twin(request):
     return render(request,
-                  "hotelapp/room/twin.html", {})
+                "hotelapp/room/twin.html", {})
 def suite(request):
     return render(request,
-                  "hotelapp/room/suite.html", {})
+                "hotelapp/room/suite.html", {})
 def deluxe(request):
     return render(request,
-                  "hotelapp/room/deluxe.html", {})
+                "hotelapp/room/deluxe.html", {})
 def bussiness(request):
     return render(request,
-                  "hotelapp/room/bussiness.html", {})
+                "hotelapp/room/bussiness.html", {})
 def board_write(request):
     return render(request,
-                  "hotelapp/board_write.html", {})
+                "hotelapp/board_write.html", {})
 def board_done(request):
     return render(request,
-                  "hotelapp/board_done.html", {})
+                "hotelapp/board_done.html", {})
 def buyer(request):
     buyer = bp.get_Buyer()
     context = {"buyer":buyer}
@@ -107,7 +107,7 @@ def reserve_info(request):
     mem = request.COOKIES['mem_inid']
     if request.GET.get('res_rmnum') == "오션뷰":
         rmnum = str(501)
-    elif request.GET.get('res_rmnum') == "시티뷰":
+    elif request.GET.get('res_rmnum') == "마운틴뷰":
         rmnum = str(503)
     else:
         rmnum = str(505)

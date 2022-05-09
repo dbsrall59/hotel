@@ -51,15 +51,13 @@ def getReserve_list(mem, rmnum, c_in, c_out, adult, kid, baby, name, email, tel,
     cursor.execute(sql)
     conn.commit()
     
-    sql="""select res_rmnum, res_in, res_out, (res_adult + res_kid + res_baby)as 총인원수, event_title, event_code, (room_sale*0.85)as 지불가격
+    sql="""select res_rmnum, rmnum_about, res_in, res_out, (res_adult + res_kid + res_baby)as 총인원수, mem_name
             from reserve inner join rmnum
                 on (res_rmnum = rmnum_id)
                 inner join room
                 on (room_id = rmnum_room)
                 inner join member
                 on (mem_inid = res_mem) 
-                inner join event
-                on (mem_inid = event_mem)
                 where res_mem = '"""
     sql+= str(mem)
     sql+="'"
