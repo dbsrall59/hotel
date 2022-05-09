@@ -93,14 +93,17 @@ def board(request):
                     context)
     
 def reserve(request):
-    df = re.getReserve_list()
-    context = {"df" : df}
     return render(request,
-                    "hotelapp/reserve.html", context)
+                    "hotelapp/reserve.html", {})
 
 def reserve_info(request):
-    df1 = re.getReserve_info1()
-    df2 = re.getReserve_info2()
+    c_in = request.GET.get('res_in')
+    c_out = request.GET.get('res_out')
+    adult= request.GET.get('res_adult')
+    kid= request.GET.get('res_kid')
+    baby= request.GET.get('res_baby')
+    df1 = re.getReserve_list(c_in, c_out, adult, kid, baby)
+    df2 = re.getReserve_list(c_in, c_out, adult, kid, baby)
     context = {"df1" : df1, "df2" : df2}
     return render(request,
                     "hotelapp/reserve_info.html", context)
@@ -125,12 +128,13 @@ def update(request):
 
 def update_suc(request):
     result = adm.update()
+    
     data = {"data" : result}
     return render(request, 'hotelapp/update_suc.html', data)
 
 def ad_mem(request):
     result = adm.adminMemberShow()
-    
+
     data = {"data" : result}
     return render(request, 'hotelapp/ad_mem.html', data)
 
@@ -149,7 +153,7 @@ def event(request):
 
 def join(request):
     return render(request, 'hotelapp/join.html', {})
- 
+
 def join_suc(request):
     id = request.GET.get('mem_id')
     pw = request.GET.get('mem_pw')

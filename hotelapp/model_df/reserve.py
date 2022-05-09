@@ -1,18 +1,38 @@
 import pandas as pd
 import cx_Oracle
 
-def getReserve_list():
+def getReserve_list( c_in, c_out, adult, kid, baby ):
     
     dsn=cx_Oracle.makedsn('localhost',1521,'xe')
-
-
     conn = cx_Oracle.connect('hotel','dbdb',dsn)
-
-
     cursor = conn.cursor()
 
+    sql=""" insert into reserve(res_mem, res_rmnum, res_in, res_out, res_date, res_price, res_adult, res_kid, res_baby)
+            values ('
+    """
+    sql+= '32'
+    sql+="','"
+    sql+= '503'
+    sql+="','"
+    sql+= str(c_in)
+    sql+="','"
+    sql+= str(c_out)
+    sql+="','"
+    sql+= '20220509'
+    sql+="','"
+    sql+= '510000'
+    sql+="','"
+    sql+= adult
+    sql+="','"
+    sql+= kid
+    sql+="','"
+    sql+= baby
+    sql+="')"
 
-    sql= """select res_in, res_out, room_sale, event_title, event_code, (room_sale*0.85)as 지불가격
+    cursor.execute(sql)
+    conn.commit()
+    
+    sql="""select res_in, res_out, (res_adult + res_kid + res_baby)as 총인원수, event_title, event_code, (room_sale*0.85)as 지불가격
             from reserve inner join rmnum
                 on (res_rmnum = rmnum_id)
                 inner join room
@@ -21,125 +41,111 @@ def getReserve_list():
                 on (mem_inid = res_mem) 
                 inner join event
                 on (mem_inid = event_mem)
-                where mem_inid = 32
-                and extract(year from res_in)= 2022
-    """
+                where res_mem = '"""
+    sql+= "32"
+    sql+="'"
+                # 32
+                # and extract(year from res_in)= 2022"""
     cursor.execute(sql)
 
-
     row = cursor.fetchall()
-
-
     colname = cursor.description
-
-
-
+    
     cursor.close()
-
-
     conn.close()
-
-
-
+    
     col=[]
     for i in colname:
         col.append(i[0])
-
 
     df = pd.DataFrame(row, columns=col)
-
     return row
 
-def getReserve_info1():
+
+# def getReserve_info1():
     
-    dsn=cx_Oracle.makedsn('localhost',1521,'xe')
+#     dsn=cx_Oracle.makedsn('localhost',1521,'xe')
+#     conn = cx_Oracle.connect('hotel','dbdb',dsn)
+#     cursor = conn.cursor()
+#     sql= """select res_id, event_title, res_date, (room_sale*0.85)
+#         from reserve inner join rmnum
+#                 on (res_rmnum = rmnum_id)
+#                 inner join room
+#                 on (room_id = rmnum_room)
+#                 inner join member
+#                 on (mem_inid = res_mem) 
+#                 inner join event
+#                 on (mem_inid = event_mem) 
+#         where extract(year from res_in)= 2022
+#     """
+#     cursor.execute(sql)
 
 
-    conn = cx_Oracle.connect('hotel','dbdb',dsn)
+#     row = cursor.fetchall()
 
 
-    cursor = conn.cursor()
-
-
-    sql= """select res_id, event_title, res_date, (room_sale*0.85)
-        from reserve inner join rmnum
-                on (res_rmnum = rmnum_id)
-                inner join room
-                on (room_id = rmnum_room)
-                inner join member
-                on (mem_inid = res_mem) 
-                inner join event
-                on (mem_inid = event_mem) 
-        where extract(year from res_in)= 2022
-    """
-    cursor.execute(sql)
-
-
-    row = cursor.fetchall()
-
-
-    colname = cursor.description
+#     colname = cursor.description
 
 
 
-    cursor.close()
+#     cursor.close()
 
 
-    conn.close()
+#     conn.close()
 
 
 
-    col=[]
-    for i in colname:
-        col.append(i[0])
+#     col=[]
+#     for i in colname:
+#         col.append(i[0])
 
 
-    df1 = pd.DataFrame(row, columns=col)
+#     df1 = pd.DataFrame(row, columns=col)
 
-    return row
+#     return row
 
-def getReserve_info2():
+# def getReserve_info2():
     
-    dsn=cx_Oracle.makedsn('localhost',1521,'xe')
+#     dsn=cx_Oracle.makedsn('localhost',1521,'xe')
 
 
-    conn = cx_Oracle.connect('hotel','dbdb',dsn)
+#     conn = cx_Oracle.connect('hotel','dbdb',dsn)
 
 
-    cursor = conn.cursor()
+#     cursor = conn.cursor()
 
 
-    sql= """select mem_id, mem_name, res_in, res_out, room_nm, rmnum_id
-            from reserve inner join rmnum
-                on (res_rmnum = rmnum_id)
-                inner join room
-                on (room_id = rmnum_room)
-                inner join member
-                on (res_mem = mem_inid)
-            where extract(year from res_in)= 2022
-    """
-    cursor.execute(sql)
+#     sql= """select mem_id, mem_name, res_in, res_out, room_nm, rmnum_id
+#             from reserve inner join rmnum
+#                 on (res_rmnum = rmnum_id)
+#                 inner join room
+#                 on (room_id = rmnum_room)
+#                 inner join member
+#                 on (res_mem = mem_inid)
+#             where extract(year from res_in)= 2022
+#     """
+#     cursor.execute(sql)
 
 
-    row = cursor.fetchall()
+#     row = cursor.fetchall()
 
 
-    colname = cursor.description
-
-
-
-    cursor.close()
-
-
-    conn.close()
+#     colname = cursor.description
 
 
 
-    col=[]
-    for i in colname:
-        col.append(i[0])
+#     cursor.close()
 
 
-    df2 = pd.DataFrame(row, columns=col)
+#     conn.close()
 
-    return row
+
+
+#     col=[]
+#     for i in colname:
+#         col.append(i[0])
+
+
+#     df2 = pd.DataFrame(row, columns=col)
+
+#     return row

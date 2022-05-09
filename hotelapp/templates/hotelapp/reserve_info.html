@@ -27,10 +27,12 @@
             <table class="tb">
                 <thead>
                     <tr>
-                        <th> 예약 확인번호 </th>
-                        <th> 적용된 이벤트 </th>
-                        <th> 결제 완료 시간 </th>
-                        <th> 결제 금액</th>
+                        <th>체크인</th>
+                        <th>체크아웃</th>
+                        <th>총인원수</th>
+                        <th>이벤트</th>
+                        <th>할인코드</th>
+                        <th>지불한 가격</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,7 +47,7 @@
             </table>
 
 
-            <table class="tb">
+            <!-- <table class="tb">
                 <thead>
                     <tr>
                         <th>투숙객 ID</th>
@@ -65,7 +67,7 @@
                     </tr>
                     {%endfor%}
                 </tbody>
-            </table>
+            </table> -->
             <a style="background:#ffba00; color:#000; display: inline-block; padding: 20px 50px; margin-top: 20px; font-size: 18px;" href="/hotel/room/">예약 취소</a>
         </div>
         {% include 'hotelapp/include/footer.html' %}
