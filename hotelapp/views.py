@@ -149,8 +149,8 @@ def ad_room(request):
                 "hotelapp/ad_room.html", context)
     
 def ad_reserve(request):
-    asdf = adre.ad_Reserve()
-    
+    #asdf = adre.ad_Reserve()
+    asdf = adre.ad_Search(1, '20210101', '20220101')
     pg = Paginator(asdf, 10)
     page = int(request.GET.get('page', 1))
     board_list = pg.get_page(page)
