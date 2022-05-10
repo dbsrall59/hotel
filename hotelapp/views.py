@@ -160,11 +160,12 @@ def update(request):
 
 
 def update_suc(request):
+    id = request.COOKIES['mem_inid']
     pw = request.GET.get('mem_pw')
     regno = request.GET.get('mem_regno')
     tel = request.GET.get('mem_tel')
     email = request.GET.get('mem_email')
-    result = adm.update_suc(pw, regno, tel, email)
+    result = adm.update_suc(id, pw, regno, tel, email)
     
     return render(request, 'hotelapp/update_suc.html', {})
 
