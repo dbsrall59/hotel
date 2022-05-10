@@ -39,7 +39,7 @@ def login_ing(request):
     
     result = lg.login(id, pw)
     
-    if len(result) == 0 :
+    if result is None :
         return render(request,"hotelapp/login.html", {})
     
     html = render(request, 'hotelapp/index.html', {})
@@ -89,14 +89,12 @@ def event(request):
 def board(request):
     bd = bod.board()
     
-    pg = Paginator(bd, 5)
+    pg = Paginator(bd, 10)
     page = int(request.GET.get('page', 1))
     board_list = pg.get_page(page)
     
     context = {"board_list" : board_list}
-    return render(request,
-                    "hotelapp/board.html",
-                    context)
+    return render(request, "hotelapp/board.html", context)
     
 def reserve(request):
     return render(request,
@@ -143,7 +141,7 @@ def ad_room(request):
 def ad_reserve(request):
     asdf = adre.ad_Reserve()
     
-    pg = Paginator(asdf, 5)
+    pg = Paginator(asdf, 10)
     page = int(request.GET.get('page', 1))
     board_list = pg.get_page(page)
     

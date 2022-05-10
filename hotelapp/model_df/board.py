@@ -19,16 +19,9 @@ def board():
             order by post_id desc"""
     cursor.execute(sql)
     row = cursor.fetchall()
-    colname = cursor.description
 
     cursor.close()
     conn.close()
-
-    col = []
-    for i in colname:
-        col.append(i[0])
-
-    bd = pd.DataFrame(row, columns = col)
 
     return row
 
