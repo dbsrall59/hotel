@@ -1,4 +1,5 @@
 from pickle import FALSE
+from urllib.request import Request
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator
@@ -56,9 +57,6 @@ def logout(request):
     html.delete_cookie('mem_inid')
     
     return html
-    
-def login_suc(request):
-    return render(request,"hotelapp/index.html", {})
     
 def ad_reserve(request):
     return render(request,
@@ -149,8 +147,8 @@ def ad_room(request):
                 "hotelapp/ad_room.html", context)
     
 def ad_reserve(request):
-    #asdf = adre.ad_Reserve()
-    asdf = adre.ad_Search(1, '20210101', '20220101')
+    asdf = adre.ad_Reserve()
+    
     pg = Paginator(asdf, 10)
     page = int(request.GET.get('page', 1))
     board_list = pg.get_page(page)
@@ -158,6 +156,28 @@ def ad_reserve(request):
     context = {"board_list" : board_list} 
     return render(request,
                 "hotelapp/ad_reserve.html", context)
+
+def ad_search(request):
+    in_date = request.GET.get('in_date')
+    out_date = request.GET.get('out_date')
+    if in_date is None:
+        in_date = request.COOKIES['in_date']
+    if out_date is None:
+        out_date = request.COOKIES['out_date']
+    
+    asdf = adre.ad_Search(1, in_date, out_date)
+    
+    pg = Paginator(asdf, 10)
+    page = int(request.GET.get('page', 1))
+    board_list = pg.get_page(page)
+    
+    context = {"board_list" : board_list} 
+    
+    html = render(request, "hotelapp/ad_reserve.html", context)
+    html.set_cookie('in_date', in_date)
+    html.set_cookie('out_date', out_date)
+    
+    return html
 
 def update(request):
     id = request.COOKIES['mem_id']
