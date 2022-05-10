@@ -89,7 +89,7 @@ def event(request):
 def board(request):
     bd = bod.board()
     
-    pg = Paginator(bd, 5)
+    pg = Paginator(bd, 10)
     page = int(request.GET.get('page', 1))
     board_list = pg.get_page(page)
     
@@ -143,7 +143,7 @@ def ad_room(request):
 def ad_reserve(request):
     asdf = adre.ad_Reserve()
     
-    pg = Paginator(asdf, 5)
+    pg = Paginator(asdf, 10)
     page = int(request.GET.get('page', 1))
     board_list = pg.get_page(page)
     
