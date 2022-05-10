@@ -29,6 +29,7 @@ urlpatterns = [
     path('ad_mem_delete/<int:inid>',views.ad_mem_delete),
     path('login/',views.login),
     path('login_ing/',views.login_ing),
+    path('logout/',views.logout),
     path('hotel_info/',views.hotel_info),
     path('room/',views.room),
     path('index/',views.index),

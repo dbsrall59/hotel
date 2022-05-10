@@ -42,13 +42,20 @@ def login_ing(request):
     if result is None :
         return render(request,"hotelapp/login.html", {})
     
-    html = render(request, 'hotelapp/index.html', {})
+    html = render(request, 'hotelapp/login_ing.html', {})
     html.set_cookie('mem_id', id, max_age=None)
     html.set_cookie('mem_pw', pw, max_age=None)
     html.set_cookie('mem_inid', result[0], max_age=None)
     
     return html
+
+def logout(request):
+    html = render(request, 'hotelapp/login_ing.html', {})
+    html.delete_cookie('mem_id')
+    html.delete_cookie('mem_pw')
+    html.delete_cookie('mem_inid')
     
+    return html
     
 def ad_reserve(request):
     return render(request,
