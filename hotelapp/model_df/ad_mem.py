@@ -154,7 +154,7 @@ def update(id):
     
     return row
 
-def update_suc(pw, regno, tel, email):
+def update_suc(id, pw, regno, tel, email):
     dsn = cx_Oracle.makedsn('localhost', 1521, 'xe')
     conn = cx_Oracle.connect('hotel', 'dbdb', dsn)
     cursor = conn.cursor()
@@ -167,7 +167,8 @@ def update_suc(pw, regno, tel, email):
     sql += tel
     sql += "', mem_email = '"
     sql += email
-    sql += "'"
+    sql += "' where mem_inid = "
+    sql += id
     
     cursor.execute(sql)
     conn.commit()
