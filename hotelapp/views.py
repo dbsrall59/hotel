@@ -39,7 +39,7 @@ def login_ing(request):
     
     result = lg.login(id, pw)
     
-    if len(result) == 0 :
+    if result is None :
         return render(request,"hotelapp/login.html", {})
     
     html = render(request, 'hotelapp/index.html', {})
@@ -94,9 +94,7 @@ def board(request):
     board_list = pg.get_page(page)
     
     context = {"board_list" : board_list}
-    return render(request,
-                    "hotelapp/board.html",
-                    context)
+    return render(request, "hotelapp/board.html", context)
     
 def reserve(request):
     return render(request,
