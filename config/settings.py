@@ -20,11 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-<<<<<<< HEAD
-SECRET_KEY = 'django-insecure-jmoxnbtgsr_97gyn#0x4)rp=$mkih4r!d^zkgp%qw^brhf$+p3'
-=======
 SECRET_KEY = 'django-insecure-r_3$%cj8s212av10h3x$zsvc7x8(hgghi%gs@1z@vn4)2z$q#='
->>>>>>> bcb163ffdf3e5ab0e48f38d426227d1108b397b7
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -59,11 +55,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-<<<<<<< HEAD
-        'DIRS': [BASE_DIR/'templates'],
-=======
         'DIRS': [BASE_DIR / 'templates'],
->>>>>>> bcb163ffdf3e5ab0e48f38d426227d1108b397b7
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,13 +117,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-<<<<<<< HEAD
-STATICFILES_DIRS = [
-    BASE_DIR/'static'
-]
-=======
 STATICFILES_DIR = [ BASE_DIR/ 'static' ]
->>>>>>> bcb163ffdf3e5ab0e48f38d426227d1108b397b7
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
